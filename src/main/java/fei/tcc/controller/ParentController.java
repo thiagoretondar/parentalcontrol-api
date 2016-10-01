@@ -2,7 +2,7 @@ package fei.tcc.controller;
 
 import fei.tcc.dto.ParentCreationDto;
 import fei.tcc.dto.ParentLoginDto;
-import fei.tcc.service.ParentCreationService;
+import fei.tcc.service.ParentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,24 +20,24 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
  */
 @RestController
 @RequestMapping(value = "/parent")
-public class UserController {
+public class ParentController {
 
-    private ParentCreationService parentCreationService;
+    private ParentService parentService;
 
     @Autowired
-    public UserController(final ParentCreationService parentCreationService) {
-        this.parentCreationService = parentCreationService;
+    public ParentController(final ParentService parentService) {
+        this.parentService = parentService;
     }
 
     @ResponseStatus(value = CREATED)
     @RequestMapping(method = POST, value = "/create", consumes = APPLICATION_JSON_UTF8_VALUE)
     public Integer create(@RequestBody @Valid ParentCreationDto parentCreationDto) {
-        return parentCreationService.create(parentCreationDto);
+        return parentService.create(parentCreationDto);
     }
 
     @RequestMapping(method = POST, value = "/login", consumes = APPLICATION_JSON_UTF8_VALUE)
-    public void login(@RequestBody @Valid ParentLoginDto parentLoginDto) {
-        // TODO implement login user method
+    public Integer login(@RequestBody @Valid ParentLoginDto parentLoginDto) {
+        return parentService.login(parentLoginDto);
     }
 
 }

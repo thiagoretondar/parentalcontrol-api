@@ -8,4 +8,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
  */
 public interface ParentRepository extends JpaRepository<ParentEntity, Integer> {
 
+    ParentEntity findByEmailAndPassword(String email, String password);
+
 }
