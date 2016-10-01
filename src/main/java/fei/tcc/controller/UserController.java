@@ -1,7 +1,7 @@
 package fei.tcc.controller;
 
-import fei.tcc.dto.UserCreationDto;
-import fei.tcc.dto.UserLoginDto;
+import fei.tcc.dto.ParentCreationDto;
+import fei.tcc.dto.ParentLoginDto;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -22,12 +22,12 @@ public class UserController {
 
     @ResponseStatus(value = CREATED)
     @RequestMapping(method = POST, value = "/create", consumes = APPLICATION_JSON_UTF8_VALUE)
-    public void create(@RequestBody @Valid UserCreationDto userCreationDto) {
+    public void create(@RequestBody @Valid ParentCreationDto parentCreationDto) {
         // TODO implement register user method
     }
 
     @RequestMapping(method = POST, value = "/login", consumes = APPLICATION_JSON_UTF8_VALUE)
-    public void login(@RequestBody @Valid UserLoginDto userLoginDto) {
+    public void login(@RequestBody @Valid ParentLoginDto parentLoginDto) {
         // TODO implement login user method
     }
 

@@ -6,7 +6,7 @@ import java.io.Serializable;
 /**
  * Created by thiagoretondar on 10/1/16.
  */
-public class UserLoginDto implements Serializable {
+public class ParentLoginDto implements Serializable {
 
     private static final long serialVersionUID = 9050568808240031898L;
 
