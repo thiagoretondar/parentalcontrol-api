@@ -11,17 +11,17 @@ public class ParentLoginDto implements Serializable {
     private static final long serialVersionUID = 9050568808240031898L;
 
     @NotNull(message = "Username field cannot be null")
-    private String username;
+    private String email;
 
     @NotNull(message = "Password field cannot be null")
     private String password;
 
-    public String getUsername() {
-        return username;
+    public String getEmail() {
+        return email;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getPassword() {
