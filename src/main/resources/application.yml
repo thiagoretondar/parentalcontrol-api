@@ -1,0 +1,9 @@
+spring:
+  datasource: #CONFIG CONNECTION
+    minIdle: 1
+    maxActive: 10
+    removeAbandonedTimeout: 120
+    validationQuery: SELECT 1
+    testWhileIdle: true
+  profiles: #CONFIG DEFAULT PROFILE
+    active: homolog
