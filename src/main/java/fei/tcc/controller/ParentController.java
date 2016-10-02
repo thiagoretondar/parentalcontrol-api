@@ -2,6 +2,7 @@ package fei.tcc.controller;
 
 import fei.tcc.dto.ParentCreationDto;
 import fei.tcc.dto.ParentLoginDto;
+import fei.tcc.exception.ParentAlreadyExistsException;
 import fei.tcc.service.ParentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -31,7 +32,7 @@ public class ParentController {
 
     @ResponseStatus(value = CREATED)
     @RequestMapping(method = POST, value = "/create", consumes = APPLICATION_JSON_UTF8_VALUE)
-    public Integer create(@RequestBody @Valid ParentCreationDto parentCreationDto) {
+    public Integer create(@RequestBody @Valid ParentCreationDto parentCreationDto) throws ParentAlreadyExistsException {
         return parentService.create(parentCreationDto);
     }
 

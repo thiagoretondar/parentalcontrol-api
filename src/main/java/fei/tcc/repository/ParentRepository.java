@@ -10,4 +10,5 @@ public interface ParentRepository extends JpaRepository<ParentEntity, Integer> {
 
     ParentEntity findByEmailAndPassword(String email, String password);
 
+    Integer countByEmail(String email);
 }

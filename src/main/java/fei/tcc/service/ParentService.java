@@ -3,6 +3,7 @@ package fei.tcc.service;
 import fei.tcc.dto.ParentCreationDto;
 import fei.tcc.dto.ParentLoginDto;
 import fei.tcc.entity.ParentEntity;
+import fei.tcc.exception.ParentAlreadyExistsException;
 import fei.tcc.repository.ParentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,15 +30,18 @@ public class ParentService {
      * @param parentCreationDto DTO for parent creation
      * @return id of new parent created
      */
-    public Integer create(ParentCreationDto parentCreationDto) {
-        ParentEntity parentEntity = new ParentEntity();
-        copyProperties(parentCreationDto, parentEntity);
+    public Integer create(ParentCreationDto parentCreationDto) throws ParentAlreadyExistsException {
 
-        // TODO validate if there isn't this parent registered already
+        if (!existsEmail(parentCreationDto)) {
+            ParentEntity parentEntity = new ParentEntity();
+            copyProperties(parentCreationDto, parentEntity);
 
-        ParentEntity savedParent = parentRepository.save(parentEntity);
+            ParentEntity savedParent = parentRepository.save(parentEntity);
 
-        return savedParent.getId();
+            return savedParent.getId();
+        }
+
+        throw new ParentAlreadyExistsException();
     }
 
     /**
@@ -54,5 +58,16 @@ public class ParentService {
         }
 
         return parentFound.getId();
+    }
+
+    private boolean existsEmail(ParentCreationDto parentCreationDto) {
+
+        Integer emailQuantity = parentRepository.countByEmail(parentCreationDto.getEmail());
+
+        if (emailQuantity != 0) {
+            return true;
+        }
+
+        return false;
     }
 }
