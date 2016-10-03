@@ -41,7 +41,7 @@ public class ParentService {
             return savedParent.getId();
         }
 
-        throw new ParentAlreadyExistsException();
+        throw new ParentAlreadyExistsException("Email already exists");
     }
 
     /**

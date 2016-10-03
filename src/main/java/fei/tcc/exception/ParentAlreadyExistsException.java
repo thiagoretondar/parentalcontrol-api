@@ -14,4 +14,8 @@ public class ParentAlreadyExistsException extends Exception {
         super();
     }
 
+    public ParentAlreadyExistsException(String message) {
+        super(message);
+    }
+
 }
