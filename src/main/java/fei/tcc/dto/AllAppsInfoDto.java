@@ -1,5 +1,6 @@
 package fei.tcc.dto;
 
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.List;
 
@@ -10,8 +11,10 @@ public class AllAppsInfoDto implements Serializable {
 
     private static final long serialVersionUID = -4294330496906557133L;
 
+    @NotNull
     private AppUsageInfoDto appUsageInfoDto;
 
+    @NotNull
     private List<LocationInfoDto> locationInfoDto;
 
     public AppUsageInfoDto getAppUsageInfoDto() {

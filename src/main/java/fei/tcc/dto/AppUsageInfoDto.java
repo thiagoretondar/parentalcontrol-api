@@ -1,5 +1,7 @@
 package fei.tcc.dto;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -11,8 +13,10 @@ public class AppUsageInfoDto implements Serializable {
 
     private static final long serialVersionUID = -7361830687953752697L;
 
+    @NotEmpty
     private String appName;
 
+    @NotEmpty
     private List<LocalDateTime> dateTimes;
 
     public String getAppName() {

@@ -1,5 +1,6 @@
 package fei.tcc.dto;
 
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 /**
@@ -9,8 +10,10 @@ public class LocationInfoDto implements Serializable {
 
     private static final long serialVersionUID = 2546732389189334144L;
 
+    @NotNull
     private Double positionX;
 
+    @NotNull
     private Double positionY;
 
     public static long getSerialVersionUID() {
