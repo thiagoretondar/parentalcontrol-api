@@ -12,25 +12,24 @@ public class AllAppsInfoDto implements Serializable {
     private static final long serialVersionUID = -4294330496906557133L;
 
     @NotNull
-    private AppUsageInfoDto appUsageInfoDto;
+    private List<AppUsageInfoDto> appUsageInfoList;
 
     @NotNull
-    private List<LocationInfoDto> locationInfoDto;
+    private List<LocationInfoDto> locationInfoList;
 
-    public AppUsageInfoDto getAppUsageInfoDto() {
-        return appUsageInfoDto;
+    public List<AppUsageInfoDto> getAppUsageInfoList() {
+        return appUsageInfoList;
     }
 
-    public void setAppUsageInfoDto(AppUsageInfoDto appUsageInfoDto) {
-        this.appUsageInfoDto = appUsageInfoDto;
+    public void setAppUsageInfoList(List<AppUsageInfoDto> appUsageInfoList) {
+        this.appUsageInfoList = appUsageInfoList;
     }
 
-    public List<LocationInfoDto> getLocationInfoDto() {
-        return locationInfoDto;
+    public List<LocationInfoDto> getLocationInfoList() {
+        return locationInfoList;
     }
 
-    public void setLocationInfoDto(List<LocationInfoDto> locationInfoDto) {
-        this.locationInfoDto = locationInfoDto;
+    public void setLocationInfoList(List<LocationInfoDto> locationInfoList) {
+        this.locationInfoList = locationInfoList;
     }
-
 }
