@@ -11,29 +11,29 @@ public class LocationInfoDto implements Serializable {
     private static final long serialVersionUID = 2546732389189334144L;
 
     @NotNull
-    private Double positionX;
+    private Double latitude;
 
     @NotNull
-    private Double positionY;
+    private Double longitude;
 
     public static long getSerialVersionUID() {
         return serialVersionUID;
     }
 
-    public Double getPositionX() {
-        return positionX;
+    public Double getLatitude() {
+        return latitude;
     }
 
-    public void setPositionX(Double positionX) {
-        this.positionX = positionX;
+    public void setLatitude(Double latitude) {
+        this.latitude = latitude;
     }
 
-    public Double getPositionY() {
-        return positionY;
+    public Double getLongitude() {
+        return longitude;
     }
 
-    public void setPositionY(Double positionY) {
-        this.positionY = positionY;
+    public void setLongitude(Double longitude) {
+        this.longitude = longitude;
     }
 
 }
