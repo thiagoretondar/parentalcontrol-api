@@ -24,7 +24,7 @@ public class AppUsageEntity {
     private LocalDateTime dateTimeUsed;
 
     @Column(name = "user_id")
-    private Integer userId;
+    private Long userId;
 
     public Integer getId() {
         return id;
@@ -50,11 +50,11 @@ public class AppUsageEntity {
         this.dateTimeUsed = dateTimeUsed;
     }
 
-    public Integer getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(Integer userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 
