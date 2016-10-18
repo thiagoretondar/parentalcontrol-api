@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -23,6 +24,7 @@ public class AllAppsInfoService {
     private LocationUsedRepository locationUsedRepository;
 
     private AppTotalTimeRepository appTotalTimeRepository;
+    private Integer quantityAdded;
 
     @Autowired
     public AllAppsInfoService(AppUsageRepository appUsageRepository, LocationUsedRepository locationUsedRepository,
@@ -33,21 +35,42 @@ public class AllAppsInfoService {
     }
 
     public void save(AllAppsInfoDto allAppsInfoDto) {
-
         List<AppUsageInfoDto> appUsageInfoList = allAppsInfoDto.getAppUsageInfoList();
         appUsageInfoList.forEach(appUsage -> {
+            quantityAdded = 0;
+
             String appName = appUsage.getAppName();
+            Long userId = allAppsInfoDto.getUserId();
+
+            List<AppUsageEntity> appUsageEntityList = new ArrayList<AppUsageEntity>();
 
             List<LocalDateTime> dateTimes = appUsage.getDateTimes();
             dateTimes.forEach(dateTime -> {
                 AppUsageEntity appUsageEntity = new AppUsageEntity();
                 appUsageEntity.setAppName(appName);
                 appUsageEntity.setDateTimeUsed(dateTime);
-                // TODO best way of saving this is by one or by batch?
-                //appUsageRepository.save(appUsageEntity);
+                appUsageEntity.setUserId(userId);
+
+                appUsageEntityList.add(appUsageEntity);
+                quantityAdded++;
+
+                if (quantityAdded == 10000) {
+                    saveInBatchAndResetQuantityAdded(appUsageEntityList);
+                }
             });
+
+            if (!appUsageEntityList.isEmpty()) {
+                saveInBatchAndResetQuantityAdded(appUsageEntityList);
+            }
+
         });
 
+    }
+
+    private void saveInBatchAndResetQuantityAdded(List<AppUsageEntity> appUsageEntityList) {
+        appUsageRepository.save(appUsageEntityList);
+        quantityAdded = 0;
+        appUsageEntityList.clear();
     }
 
 }
