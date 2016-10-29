@@ -1,7 +1,11 @@
 package fei.tcc.dto;
 
+import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 /**
  * Created by thiagoretondar on 10/10/16.
@@ -16,9 +20,9 @@ public class LocationInfoDto implements Serializable {
     @NotNull
     private Double longitude;
 
-    public static long getSerialVersionUID() {
-        return serialVersionUID;
-    }
+    @NotEmpty
+    @DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:ss")
+    private LocalDateTime datetime;
 
     public Double getLatitude() {
         return latitude;
@@ -36,4 +40,11 @@ public class LocationInfoDto implements Serializable {
         this.longitude = longitude;
     }
 
+    public LocalDateTime getDatetime() {
+        return datetime;
+    }
+
+    public void setDatetime(LocalDateTime datetime) {
+        this.datetime = datetime;
+    }
 }
