@@ -1,6 +1,7 @@
 package fei.tcc.service;
 
 import fei.tcc.dto.AllAppsInfoDto;
+import fei.tcc.entity.AppTotalTimeEntity;
 import fei.tcc.entity.AppUsageEntity;
 import fei.tcc.entity.LocationUsedEntity;
 import fei.tcc.repository.AppTotalTimeRepository;
@@ -24,6 +25,7 @@ public class AllAppsInfoService {
     private LocationUsedRepository locationUsedRepository;
 
     private AppTotalTimeRepository appTotalTimeRepository;
+
     private Integer quantityAdded;
 
     @Autowired
@@ -34,12 +36,32 @@ public class AllAppsInfoService {
         this.appTotalTimeRepository = appTotalTimeRepository;
     }
 
+    // TODO refactor this. Is better to split into services
     public void save(AllAppsInfoDto allAppsInfoDto) {
 
         saveAllAppsInfo(allAppsInfoDto);
 
         saveAllLocationInfo(allAppsInfoDto);
 
+        saveAllMostUsedApps(allAppsInfoDto);
+
+    }
+
+    private void saveAllMostUsedApps(AllAppsInfoDto allAppsInfoDto) {
+        allAppsInfoDto.getMostUsedAppsList().forEach(app -> {
+            AppTotalTimeEntity appTotalTimeEntity = appTotalTimeRepository
+                    .findByAppName(app.getName())
+                    .orElse(new AppTotalTimeEntity(app.getName()));
+
+            Integer hours = Integer.valueOf(app.getTime().split(":")[0]);
+            Integer minutes = Integer.valueOf(app.getTime().split(":")[1]);
+
+            appTotalTimeEntity.setHours(hours);
+            appTotalTimeEntity.setMinutes(minutes);
+            appTotalTimeEntity.setUserId(allAppsInfoDto.getUserId());
+
+            appTotalTimeRepository.save(appTotalTimeEntity);
+        });
     }
 
     private void saveAllLocationInfo(AllAppsInfoDto allAppsInfoDto) {
