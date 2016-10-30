@@ -30,10 +30,12 @@ public class AppMostUsedService {
             Integer hours = Integer.valueOf(app.getTime().split(":")[0]);
             Integer minutes = Integer.valueOf(app.getTime().split(":")[1]);
 
-            appTotalTimeEntity.setHours(hours);
-            appTotalTimeEntity.setMinutes(minutes);
+            if (!hours.equals(appTotalTimeEntity.getHours()) || !minutes.equals(appTotalTimeEntity.getMinutes())) {
+                appTotalTimeEntity.setHours(hours);
+                appTotalTimeEntity.setMinutes(minutes);
 
-            appTotalTimeRepository.save(appTotalTimeEntity);
+                appTotalTimeRepository.save(appTotalTimeEntity);
+            }
         });
     }
 
