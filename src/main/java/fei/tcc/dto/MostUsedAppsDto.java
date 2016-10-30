@@ -16,11 +16,6 @@ public class MostUsedAppsDto implements Serializable {
     @NotNull
     private String time;
 
-    public MostUsedAppsDto(String name, String time) {
-        this.name = name;
-        this.time = time;
-    }
-
     public String getName() {
         return name;
     }

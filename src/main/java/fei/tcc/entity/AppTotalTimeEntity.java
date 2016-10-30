@@ -25,8 +25,15 @@ public class AppTotalTimeEntity {
     @Column(name = "minutes")
     private Integer minutes;
 
-    @Column(name = "used_id")
-    private Integer userId;
+    @Column(name = "user_id")
+    private Long userId;
+
+    public AppTotalTimeEntity() {
+    }
+
+    public AppTotalTimeEntity(String appName) {
+        this.appName = appName;
+    }
 
     public Integer getId() {
         return id;
@@ -60,11 +67,11 @@ public class AppTotalTimeEntity {
         this.minutes = minutes;
     }
 
-    public Integer getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(Integer userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 
