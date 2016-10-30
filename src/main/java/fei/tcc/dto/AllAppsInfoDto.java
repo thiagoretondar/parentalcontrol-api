@@ -20,6 +20,8 @@ public class AllAppsInfoDto implements Serializable {
     @NotNull
     private List<LocationInfoDto> locationInfoList;
 
+    private List<MostUsedAppsDto> mostUsedAppsList;
+
     public Long getUserId() {
         return userId;
     }
@@ -42,5 +44,13 @@ public class AllAppsInfoDto implements Serializable {
 
     public void setLocationInfoList(List<LocationInfoDto> locationInfoList) {
         this.locationInfoList = locationInfoList;
+    }
+
+    public List<MostUsedAppsDto> getMostUsedAppsList() {
+        return mostUsedAppsList;
+    }
+
+    public void setMostUsedAppsList(List<MostUsedAppsDto> mostUsedAppsList) {
+        this.mostUsedAppsList = mostUsedAppsList;
     }
 }
