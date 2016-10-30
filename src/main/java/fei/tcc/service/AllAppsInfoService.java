@@ -78,18 +78,18 @@ public class AllAppsInfoService {
                 quantityAdded++;
 
                 if (quantityAdded == 10000) {
-                    saveInBatchAndResetQuantityAdded(appUsageEntityList);
+                    saveAppUsageInBatchAndResetQuantityAdded(appUsageEntityList);
                 }
             });
 
             if (!appUsageEntityList.isEmpty()) {
-                saveInBatchAndResetQuantityAdded(appUsageEntityList);
+                saveAppUsageInBatchAndResetQuantityAdded(appUsageEntityList);
             }
 
         });
     }
 
-    private void saveInBatchAndResetQuantityAdded(List<AppUsageEntity> appUsageEntityList) {
+    private void saveAppUsageInBatchAndResetQuantityAdded(List<AppUsageEntity> appUsageEntityList) {
         appUsageRepository.save(appUsageEntityList);
         quantityAdded = 0;
         appUsageEntityList.clear();
