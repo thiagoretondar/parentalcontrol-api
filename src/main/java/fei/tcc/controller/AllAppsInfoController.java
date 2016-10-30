@@ -1,7 +1,7 @@
 package fei.tcc.controller;
 
+import fei.tcc.business.UsageAppsInfoBusiness;
 import fei.tcc.dto.AllAppsInfoDto;
-import fei.tcc.service.AllAppsInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,18 +19,16 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 @RequestMapping("/app")
 public class AllAppsInfoController {
 
-    private AllAppsInfoService allAppsInfoService;
+    private UsageAppsInfoBusiness usageAppsInfoBusiness;
 
     @Autowired
-    public AllAppsInfoController(AllAppsInfoService allAppsInfoService) {
-        this.allAppsInfoService = allAppsInfoService;
+    public AllAppsInfoController(UsageAppsInfoBusiness usageAppsInfoBusiness) {
+        this.usageAppsInfoBusiness = usageAppsInfoBusiness;
     }
 
     @RequestMapping(method = POST, consumes = APPLICATION_JSON_UTF8_VALUE)
     public void save(@RequestBody @Valid AllAppsInfoDto allAppsInfoDto) {
-
-        allAppsInfoService.save(allAppsInfoDto);
-
+        usageAppsInfoBusiness.save(allAppsInfoDto);
     }
 
 }

@@ -31,8 +31,9 @@ public class AppTotalTimeEntity {
     public AppTotalTimeEntity() {
     }
 
-    public AppTotalTimeEntity(String appName) {
+    public AppTotalTimeEntity(String appName, Long userId) {
         this.appName = appName;
+        this.userId = userId;
     }
 
     public Integer getId() {
