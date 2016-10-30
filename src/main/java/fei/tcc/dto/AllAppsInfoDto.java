@@ -1,5 +1,7 @@
 package fei.tcc.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.List;
@@ -12,14 +14,19 @@ public class AllAppsInfoDto implements Serializable {
     private static final long serialVersionUID = -4294330496906557133L;
 
     @NotNull
+    @JsonProperty("userId")
     private Long userId;
 
     @NotNull
+    @JsonProperty("appUsageInfo")
     private List<AppUsageInfoDto> appUsageInfoList;
 
     @NotNull
+    @JsonProperty("locationInfo")
     private List<LocationInfoDto> locationInfoList;
 
+    @NotNull
+    @JsonProperty("mostUsedApps")
     private List<MostUsedAppsDto> mostUsedAppsList;
 
     public Long getUserId() {
