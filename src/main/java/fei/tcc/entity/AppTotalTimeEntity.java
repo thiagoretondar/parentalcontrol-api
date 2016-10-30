@@ -19,8 +19,11 @@ public class AppTotalTimeEntity {
     @Column(name = "app_name")
     private String appName;
 
-    @Column(name = "total_time")
-    private Double totalTime;
+    @Column(name = "hours")
+    private Integer hours;
+
+    @Column(name = "minutes")
+    private Integer minutes;
 
     @Column(name = "used_id")
     private Integer userId;
@@ -41,12 +44,20 @@ public class AppTotalTimeEntity {
         this.appName = appName;
     }
 
-    public Double getTotalTime() {
-        return totalTime;
+    public Integer getHours() {
+        return hours;
     }
 
-    public void setTotalTime(Double totalTime) {
-        this.totalTime = totalTime;
+    public void setHours(Integer hours) {
+        this.hours = hours;
+    }
+
+    public Integer getMinutes() {
+        return minutes;
+    }
+
+    public void setMinutes(Integer minutes) {
+        this.minutes = minutes;
     }
 
     public Integer getUserId() {
