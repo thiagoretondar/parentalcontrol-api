@@ -1,5 +1,6 @@
 package fei.tcc.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -15,13 +16,16 @@ public class LocationInfoDto implements Serializable {
     private static final long serialVersionUID = 2546732389189334144L;
 
     @NotNull
+    @JsonProperty("lat")
     private Double latitude;
 
     @NotNull
+    @JsonProperty("lon")
     private Double longitude;
 
     @NotEmpty
     @DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:ss")
+    @JsonProperty("datetime")
     private LocalDateTime datetime;
 
     public Double getLatitude() {

@@ -1,8 +1,8 @@
 package fei.tcc.service;
 
 import fei.tcc.dto.AllAppsInfoDto;
-import fei.tcc.dto.AppUsageInfoDto;
 import fei.tcc.entity.AppUsageEntity;
+import fei.tcc.entity.LocationUsedEntity;
 import fei.tcc.repository.AppTotalTimeRepository;
 import fei.tcc.repository.AppUsageRepository;
 import fei.tcc.repository.LocationUsedRepository;
@@ -35,14 +35,37 @@ public class AllAppsInfoService {
     }
 
     public void save(AllAppsInfoDto allAppsInfoDto) {
-        List<AppUsageInfoDto> appUsageInfoList = allAppsInfoDto.getAppUsageInfoList();
-        appUsageInfoList.forEach(appUsage -> {
+
+        saveAllAppsInfo(allAppsInfoDto);
+
+        saveAllLocationInfo(allAppsInfoDto);
+
+    }
+
+    private void saveAllLocationInfo(AllAppsInfoDto allAppsInfoDto) {
+        List<LocationUsedEntity> locationUsedEntityList = new ArrayList<>();
+        Long userId = allAppsInfoDto.getUserId();
+
+        allAppsInfoDto.getLocationInfoList().forEach(locationInfo -> {
+            locationUsedEntityList.add(new LocationUsedEntity(
+                    locationInfo.getDatetime(),
+                    locationInfo.getLatitude(),
+                    locationInfo.getLongitude(),
+                    userId
+            ));
+        });
+
+        locationUsedRepository.save(locationUsedEntityList);
+    }
+
+    private void saveAllAppsInfo(AllAppsInfoDto allAppsInfoDto) {
+        allAppsInfoDto.getAppUsageInfoList().forEach(appUsage -> {
             quantityAdded = 0;
 
             String appName = appUsage.getAppName();
             Long userId = allAppsInfoDto.getUserId();
 
-            List<AppUsageEntity> appUsageEntityList = new ArrayList<AppUsageEntity>();
+            List<AppUsageEntity> appUsageEntityList = new ArrayList<>();
 
             List<LocalDateTime> dateTimes = appUsage.getDateTimes();
             dateTimes.forEach(dateTime -> {
@@ -64,7 +87,6 @@ public class AllAppsInfoService {
             }
 
         });
-
     }
 
     private void saveInBatchAndResetQuantityAdded(List<AppUsageEntity> appUsageEntityList) {
