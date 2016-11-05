@@ -21,11 +21,9 @@ public class AllAppsInfoDto implements Serializable {
     @JsonProperty("appUsageInfo")
     private List<AppUsageInfoDto> appUsageInfoList;
 
-    @NotNull
     @JsonProperty("locationInfo")
     private List<LocationInfoDto> locationInfoList;
 
-    @NotNull
     @JsonProperty("mostUsedApps")
     private List<MostUsedAppsDto> mostUsedAppsList;
 
