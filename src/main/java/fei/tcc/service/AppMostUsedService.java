@@ -27,8 +27,8 @@ public class AppMostUsedService {
                     .findByAppName(app.getName())
                     .orElse(new AppTotalTimeEntity(app.getName(), userId));
 
-            Integer hours = Integer.valueOf(app.getTime().split(":")[0]);
-            Integer minutes = Integer.valueOf(app.getTime().split(":")[1]);
+            Integer hours = app.getHours();
+            Integer minutes = app.getMinutes();
 
             if (!hours.equals(appTotalTimeEntity.getHours()) || !minutes.equals(appTotalTimeEntity.getMinutes())) {
                 appTotalTimeEntity.setHours(hours);
