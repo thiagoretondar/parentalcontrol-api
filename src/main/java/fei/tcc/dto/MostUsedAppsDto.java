@@ -14,7 +14,10 @@ public class MostUsedAppsDto implements Serializable {
     private String name;
 
     @NotNull
-    private String time;
+    private Integer hours;
+
+    @NotNull
+    private Integer minutes;
 
     public String getName() {
         return name;
@@ -24,11 +27,20 @@ public class MostUsedAppsDto implements Serializable {
         this.name = name;
     }
 
-    public String getTime() {
-        return time;
+    public Integer getHours() {
+        return hours;
     }
 
-    public void setTime(String time) {
-        this.time = time;
+    public void setHours(Integer hours) {
+        this.hours = hours;
     }
+
+    public Integer getMinutes() {
+        return minutes;
+    }
+
+    public void setMinutes(Integer minutes) {
+        this.minutes = minutes;
+    }
+
 }
