@@ -1,12 +1,15 @@
 package fei.tcc.business;
 
 import fei.tcc.dto.AllAppsInfoDto;
+import fei.tcc.dto.LastDatetimeUsedDto;
 import fei.tcc.service.AppLocationInfoService;
 import fei.tcc.service.AppMostUsedService;
 import fei.tcc.service.AppUsageService;
 import fei.tcc.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDateTime;
 
 /**
  * Created by thiagoretondar on 30/10/16.
@@ -31,16 +34,19 @@ public class UsageAppsInfoBusiness {
         this.appMostUsedService = appMostUsedService;
     }
 
-    public void save(AllAppsInfoDto allAppsInfoDto) {
-
+    public LastDatetimeUsedDto save(AllAppsInfoDto allAppsInfoDto) {
         Long userId = allAppsInfoDto.getUserId();
 
         if (userService.existsUserWithId(userId)) {
             // TODO refactor: maybe create a general exception to try any of those actions
-            appUsageService.saveAll(allAppsInfoDto.getAppUsageInfoList(), userId);
-            appLocationInfoService.saveAll(allAppsInfoDto.getLocationInfoList(), userId);
+            LocalDateTime lastAppUsageDatetime = appUsageService.saveAll(allAppsInfoDto.getAppUsageInfoList(), userId);
+            LocalDateTime lastLocationUsageDatetime = appLocationInfoService.saveAll(allAppsInfoDto.getLocationInfoList(), userId);
             appMostUsedService.saveAll(allAppsInfoDto.getMostUsedAppsList(), userId);
+
+            return new LastDatetimeUsedDto(userId, lastAppUsageDatetime, lastLocationUsageDatetime);
         }
+
+        return new LastDatetimeUsedDto();
 
     }
 

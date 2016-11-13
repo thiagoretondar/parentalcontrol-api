@@ -6,6 +6,8 @@ import fei.tcc.repository.LocationUsedRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,12 +19,16 @@ public class AppLocationInfoService {
 
     private LocationUsedRepository locationUsedRepository;
 
+    private LocalDateTime lastDatetime;
+
     @Autowired
     public AppLocationInfoService(LocationUsedRepository locationUsedRepository) {
         this.locationUsedRepository = locationUsedRepository;
     }
 
-    public void saveAll(List<LocationInfoDto> locationInfoList, Long userId) {
+    public LocalDateTime saveAll(List<LocationInfoDto> locationInfoList, Long userId) {
+        lastDatetime = LocalDateTime.of(1900, Month.JANUARY, 1, 0, 0);
+
         List<LocationUsedEntity> locationUsedEntityList = new ArrayList<>();
 
         locationInfoList.forEach(locationInfo -> {
@@ -32,9 +38,16 @@ public class AppLocationInfoService {
                     locationInfo.getLongitude(),
                     userId
             ));
+
+            if (locationInfo.getDatetime().isAfter(lastDatetime)) {
+                lastDatetime = locationInfo.getDatetime();
+            }
+
         });
 
         locationUsedRepository.save(locationUsedEntityList);
+
+        return lastDatetime;
     }
 
 }

@@ -7,3 +7,6 @@ spring:
     testWhileIdle: true
   profiles: #CONFIG DEFAULT PROFILE
     active: homolog
+  jackson:
+    serialization:
+      WRITE_DATES_AS_TIMESTAMPS: false

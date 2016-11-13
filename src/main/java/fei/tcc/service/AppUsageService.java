@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,12 +21,15 @@ public class AppUsageService {
 
     private Integer quantityAdded;
 
+    private LocalDateTime lastDatetime;
+
     @Autowired
     public AppUsageService(AppUsageRepository appUsageRepository) {
         this.appUsageRepository = appUsageRepository;
     }
 
-    public void saveAll(List<AppUsageInfoDto> appUsageInfoList, Long userId) {
+    public LocalDateTime saveAll(List<AppUsageInfoDto> appUsageInfoList, Long userId) {
+        lastDatetime = LocalDateTime.of(1900, Month.JANUARY, 1, 0, 0);
         appUsageInfoList.forEach(appUsage -> {
             quantityAdded = 0;
 
@@ -43,6 +47,10 @@ public class AppUsageService {
                 appUsageEntityList.add(appUsageEntity);
                 quantityAdded++;
 
+                if (dateTime.isAfter(lastDatetime)) {
+                    lastDatetime = dateTime;
+                }
+
                 if (quantityAdded == 10000) {
                     saveAppUsageInBatchAndResetQuantityAdded(appUsageEntityList);
                 }
@@ -52,6 +60,8 @@ public class AppUsageService {
                 saveAppUsageInBatchAndResetQuantityAdded(appUsageEntityList);
             }
         });
+
+        return lastDatetime;
     }
 
     private void saveAppUsageInBatchAndResetQuantityAdded(List<AppUsageEntity> appUsageEntityList) {

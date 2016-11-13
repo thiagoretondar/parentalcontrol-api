@@ -2,6 +2,7 @@ package fei.tcc.controller;
 
 import fei.tcc.business.UsageAppsInfoBusiness;
 import fei.tcc.dto.AllAppsInfoDto;
+import fei.tcc.dto.LastDatetimeUsedDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,8 +28,8 @@ public class AllAppsInfoController {
     }
 
     @RequestMapping(method = POST, consumes = APPLICATION_JSON_UTF8_VALUE)
-    public void save(@RequestBody @Valid AllAppsInfoDto allAppsInfoDto) {
-        usageAppsInfoBusiness.save(allAppsInfoDto);
+    public LastDatetimeUsedDto save(@RequestBody @Valid AllAppsInfoDto allAppsInfoDto) {
+        return usageAppsInfoBusiness.save(allAppsInfoDto);
     }
 
 }
