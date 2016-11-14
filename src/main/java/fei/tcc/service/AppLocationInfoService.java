@@ -7,9 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
+
+import static java.time.Instant.ofEpochMilli;
+import static java.time.ZoneId.systemDefault;
 
 /**
  * Created by thiagoretondar on 30/10/16.
@@ -19,27 +21,28 @@ public class AppLocationInfoService {
 
     private LocationUsedRepository locationUsedRepository;
 
-    private LocalDateTime lastDatetime;
+    private Long lastDatetime;
 
     @Autowired
     public AppLocationInfoService(LocationUsedRepository locationUsedRepository) {
         this.locationUsedRepository = locationUsedRepository;
     }
 
-    public LocalDateTime saveAll(List<LocationInfoDto> locationInfoList, Long userId) {
-        lastDatetime = LocalDateTime.of(1900, Month.JANUARY, 1, 0, 0);
+    public Long saveAll(List<LocationInfoDto> locationInfoList, Long userId) {
+        lastDatetime = 0L;
 
         List<LocationUsedEntity> locationUsedEntityList = new ArrayList<>();
 
         locationInfoList.forEach(locationInfo -> {
+            LocalDateTime dateTimeConverted = ofEpochMilli(locationInfo.getDatetime()).atZone(systemDefault()).toLocalDateTime();
             locationUsedEntityList.add(new LocationUsedEntity(
-                    locationInfo.getDatetime(),
+                    dateTimeConverted,
                     locationInfo.getLatitude(),
                     locationInfo.getLongitude(),
                     userId
             ));
 
-            if (locationInfo.getDatetime().isAfter(lastDatetime)) {
+            if (locationInfo.getDatetime().longValue() > lastDatetime) {
                 lastDatetime = locationInfo.getDatetime();
             }
 

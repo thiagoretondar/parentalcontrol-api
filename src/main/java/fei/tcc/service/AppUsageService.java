@@ -7,9 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.time.Month;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
+
+import static java.time.Instant.ofEpochMilli;
 
 /**
  * Created by thiagoretondar on 30/10/16.
@@ -21,15 +23,15 @@ public class AppUsageService {
 
     private Integer quantityAdded;
 
-    private LocalDateTime lastDatetime;
+    private long lastDatetime;
 
     @Autowired
     public AppUsageService(AppUsageRepository appUsageRepository) {
         this.appUsageRepository = appUsageRepository;
     }
 
-    public LocalDateTime saveAll(List<AppUsageInfoDto> appUsageInfoList, Long userId) {
-        lastDatetime = LocalDateTime.of(1900, Month.JANUARY, 1, 0, 0);
+    public Long saveAll(List<AppUsageInfoDto> appUsageInfoList, Long userId) {
+        lastDatetime = 0L;
         appUsageInfoList.forEach(appUsage -> {
             quantityAdded = 0;
 
@@ -37,17 +39,18 @@ public class AppUsageService {
 
             List<AppUsageEntity> appUsageEntityList = new ArrayList<>();
 
-            List<LocalDateTime> dateTimes = appUsage.getDateTimes();
+            List<Long> dateTimes = appUsage.getDateTimes();
             dateTimes.forEach(dateTime -> {
+                LocalDateTime dateTimeConverted = ofEpochMilli(dateTime).atZone(ZoneId.systemDefault()).toLocalDateTime();
                 AppUsageEntity appUsageEntity = new AppUsageEntity();
                 appUsageEntity.setAppName(appName);
-                appUsageEntity.setDateTimeUsed(dateTime);
+                appUsageEntity.setDateTimeUsed(dateTimeConverted);
                 appUsageEntity.setUserId(userId);
 
                 appUsageEntityList.add(appUsageEntity);
                 quantityAdded++;
 
-                if (dateTime.isAfter(lastDatetime)) {
+                if (dateTime.longValue() > lastDatetime) {
                     lastDatetime = dateTime;
                 }
 

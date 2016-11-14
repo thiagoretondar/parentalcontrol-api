@@ -1,9 +1,6 @@
 package fei.tcc.dto;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-
 import java.io.Serializable;
-import java.time.LocalDateTime;
 
 /**
  * Created by thiagoretondar on 13/11/16.
@@ -14,16 +11,14 @@ public class LastDatetimeUsedDto implements Serializable {
 
     private Long userId;
 
-    @JsonFormat(pattern = "yyyy-MM-dd'T'hh:mm:ss")
-    private LocalDateTime lastAppUsageDatetime;
+    private Long lastAppUsageDatetime;
 
-    @JsonFormat(pattern = "yyyy-MM-dd'T'hh:mm:ss")
-    private LocalDateTime lastLocationUsageDatetime;
+    private Long lastLocationUsageDatetime;
 
     public LastDatetimeUsedDto() {
     }
 
-    public LastDatetimeUsedDto(Long userId, LocalDateTime lastAppUsageDatetime, LocalDateTime lastLocationUsageDatetime) {
+    public LastDatetimeUsedDto(Long userId, Long lastAppUsageDatetime, Long lastLocationUsageDatetime) {
         this.userId = userId;
         this.lastAppUsageDatetime = lastAppUsageDatetime;
         this.lastLocationUsageDatetime = lastLocationUsageDatetime;
@@ -37,19 +32,20 @@ public class LastDatetimeUsedDto implements Serializable {
         this.userId = userId;
     }
 
-    public LocalDateTime getLastAppUsageDatetime() {
+    public Long getLastAppUsageDatetime() {
         return lastAppUsageDatetime;
     }
 
-    public void setLastAppUsageDatetime(LocalDateTime lastAppUsageDatetime) {
+    public void setLastAppUsageDatetime(Long lastAppUsageDatetime) {
         this.lastAppUsageDatetime = lastAppUsageDatetime;
     }
 
-    public LocalDateTime getLastLocationUsageDatetime() {
+    public Long getLastLocationUsageDatetime() {
         return lastLocationUsageDatetime;
     }
 
-    public void setLastLocationUsageDatetime(LocalDateTime lastLocationUsageDatetime) {
+    public void setLastLocationUsageDatetime(Long lastLocationUsageDatetime) {
         this.lastLocationUsageDatetime = lastLocationUsageDatetime;
     }
+
 }

@@ -9,8 +9,6 @@ import fei.tcc.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
-
 /**
  * Created by thiagoretondar on 30/10/16.
  */
@@ -39,8 +37,8 @@ public class UsageAppsInfoBusiness {
 
         if (userService.existsUserWithId(userId)) {
             // TODO refactor: maybe create a general exception to try any of those actions
-            LocalDateTime lastAppUsageDatetime = appUsageService.saveAll(allAppsInfoDto.getAppUsageInfoList(), userId);
-            LocalDateTime lastLocationUsageDatetime = appLocationInfoService.saveAll(allAppsInfoDto.getLocationInfoList(), userId);
+            Long lastAppUsageDatetime = appUsageService.saveAll(allAppsInfoDto.getAppUsageInfoList(), userId);
+            Long lastLocationUsageDatetime = appLocationInfoService.saveAll(allAppsInfoDto.getLocationInfoList(), userId);
             appMostUsedService.saveAll(allAppsInfoDto.getMostUsedAppsList(), userId);
 
             return new LastDatetimeUsedDto(userId, lastAppUsageDatetime, lastLocationUsageDatetime);

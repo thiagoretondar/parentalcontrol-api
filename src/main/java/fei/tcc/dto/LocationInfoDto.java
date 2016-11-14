@@ -2,11 +2,9 @@ package fei.tcc.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.validator.constraints.NotEmpty;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
-import java.time.LocalDateTime;
 
 /**
  * Created by thiagoretondar on 10/10/16.
@@ -24,9 +22,8 @@ public class LocationInfoDto implements Serializable {
     private Double longitude;
 
     @NotEmpty
-    @DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:ss")
     @JsonProperty("datetime")
-    private LocalDateTime datetime;
+    private Long datetime;
 
     public Double getLatitude() {
         return latitude;
@@ -44,11 +41,11 @@ public class LocationInfoDto implements Serializable {
         this.longitude = longitude;
     }
 
-    public LocalDateTime getDatetime() {
+    public Long getDatetime() {
         return datetime;
     }
 
-    public void setDatetime(LocalDateTime datetime) {
+    public void setDatetime(Long datetime) {
         this.datetime = datetime;
     }
 }

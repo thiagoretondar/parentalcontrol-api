@@ -1,10 +1,8 @@
 package fei.tcc.dto;
 
 import org.hibernate.validator.constraints.NotEmpty;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -18,8 +16,7 @@ public class AppUsageInfoDto implements Serializable {
     private String appName;
 
     @NotEmpty
-    @DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:ss")
-    private List<LocalDateTime> dateTimes;
+    private List<Long> dateTimes;
 
     public String getAppName() {
         return appName;
@@ -29,11 +26,11 @@ public class AppUsageInfoDto implements Serializable {
         this.appName = appName;
     }
 
-    public List<LocalDateTime> getDateTimes() {
+    public List<Long> getDateTimes() {
         return dateTimes;
     }
 
-    public void setDateTimes(List<LocalDateTime> dateTimes) {
+    public void setDateTimes(List<Long> dateTimes) {
         this.dateTimes = dateTimes;
     }
 
