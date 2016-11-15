@@ -3,6 +3,7 @@ package fei.tcc.controller;
 import fei.tcc.business.UsageAppsInfoBusiness;
 import fei.tcc.dto.AllAppsInfoDto;
 import fei.tcc.dto.LastDatetimeUsedDto;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,6 +23,8 @@ public class AllAppsInfoController {
 
     private UsageAppsInfoBusiness usageAppsInfoBusiness;
 
+    private final static Logger LOGGER = Logger.getLogger(AllAppsInfoController.class);
+
     @Autowired
     public AllAppsInfoController(UsageAppsInfoBusiness usageAppsInfoBusiness) {
         this.usageAppsInfoBusiness = usageAppsInfoBusiness;
@@ -29,6 +32,7 @@ public class AllAppsInfoController {
 
     @RequestMapping(method = POST, consumes = APPLICATION_JSON_UTF8_VALUE)
     public LastDatetimeUsedDto save(@RequestBody @Valid AllAppsInfoDto allAppsInfoDto) {
+        LOGGER.info("Received info from user id: " + allAppsInfoDto.getUserId());
         return usageAppsInfoBusiness.save(allAppsInfoDto);
     }
 

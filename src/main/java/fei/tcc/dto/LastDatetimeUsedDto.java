@@ -48,4 +48,12 @@ public class LastDatetimeUsedDto implements Serializable {
         this.lastLocationUsageDatetime = lastLocationUsageDatetime;
     }
 
+    @Override
+    public String toString() {
+        return "LastDatetimeUsedDto{" +
+                "userId=" + userId +
+                ", lastAppUsageDatetime=" + lastAppUsageDatetime +
+                ", lastLocationUsageDatetime=" + lastLocationUsageDatetime +
+                '}';
+    }
 }

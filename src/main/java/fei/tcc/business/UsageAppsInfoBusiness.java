@@ -6,6 +6,7 @@ import fei.tcc.service.AppLocationInfoService;
 import fei.tcc.service.AppMostUsedService;
 import fei.tcc.service.AppUsageService;
 import fei.tcc.service.UserService;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +24,8 @@ public class UsageAppsInfoBusiness {
 
     private AppMostUsedService appMostUsedService;
 
+    private final static Logger LOGGER = Logger.getLogger(UsageAppsInfoBusiness.class);
+
     @Autowired
     public UsageAppsInfoBusiness(UserService userService, AppUsageService appUsageService,
                                  AppLocationInfoService appLocationInfoService, AppMostUsedService appMostUsedService) {
@@ -36,14 +39,19 @@ public class UsageAppsInfoBusiness {
         Long userId = allAppsInfoDto.getUserId();
 
         if (userService.existsUserWithId(userId)) {
+            LOGGER.info("User ID exists. Starting saving information received");
             // TODO refactor: maybe create a general exception to try any of those actions
             Long lastAppUsageDatetime = appUsageService.saveAll(allAppsInfoDto.getAppUsageInfoList(), userId);
             Long lastLocationUsageDatetime = appLocationInfoService.saveAll(allAppsInfoDto.getLocationInfoList(), userId);
             appMostUsedService.saveAll(allAppsInfoDto.getMostUsedAppsList(), userId);
 
-            return new LastDatetimeUsedDto(userId, lastAppUsageDatetime, lastLocationUsageDatetime);
+            LastDatetimeUsedDto lastDatetimeUsedDto = new LastDatetimeUsedDto(userId, lastAppUsageDatetime, lastLocationUsageDatetime);
+            LOGGER.info("Returning response: " + lastDatetimeUsedDto.toString());
+
+            return lastDatetimeUsedDto;
         }
 
+        LOGGER.warn("User ID received isn't stored in database: " + userId);
         return new LastDatetimeUsedDto();
 
     }
