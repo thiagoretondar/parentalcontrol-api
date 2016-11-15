@@ -17,7 +17,6 @@ public class AllAppsInfoDto implements Serializable {
     @JsonProperty("userId")
     private Long userId;
 
-    @NotNull
     @JsonProperty("appUsageInfo")
     private List<AppUsageInfoDto> appUsageInfoList;
 
