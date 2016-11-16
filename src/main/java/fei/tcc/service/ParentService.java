@@ -2,6 +2,7 @@ package fei.tcc.service;
 
 import fei.tcc.dto.ParentCreationDto;
 import fei.tcc.dto.ParentLoginDto;
+import fei.tcc.dto.UserLoginIdResponse;
 import fei.tcc.entity.ParentEntity;
 import fei.tcc.exception.ParentAlreadyExistsException;
 import fei.tcc.repository.ParentRepository;
@@ -30,7 +31,7 @@ public class ParentService {
      * @param parentCreationDto DTO for parent creation
      * @return id of new parent created
      */
-    public Integer create(ParentCreationDto parentCreationDto) throws ParentAlreadyExistsException {
+    public UserLoginIdResponse create(ParentCreationDto parentCreationDto) throws ParentAlreadyExistsException {
 
         if (!existsEmail(parentCreationDto)) {
             ParentEntity parentEntity = new ParentEntity();
@@ -38,7 +39,7 @@ public class ParentService {
 
             ParentEntity savedParent = parentRepository.save(parentEntity);
 
-            return savedParent.getId();
+            return new UserLoginIdResponse(true, savedParent.getId());
         }
 
         throw new ParentAlreadyExistsException("Email already exists");
@@ -50,14 +51,14 @@ public class ParentService {
      * @param parentLoginDto DTO for parent login
      * @return id of parent found
      */
-    public Integer login(ParentLoginDto parentLoginDto) {
+    public UserLoginIdResponse login(ParentLoginDto parentLoginDto) {
         ParentEntity parentFound = parentRepository.findByEmailAndPassword(parentLoginDto.getEmail(), parentLoginDto.getPassword());
 
         if (isNull(parentFound)) {
-            return 0;
+            return new UserLoginIdResponse(false, -1);
         }
 
-        return parentFound.getId();
+        return new UserLoginIdResponse(true, parentFound.getId());
     }
 
     private boolean existsEmail(ParentCreationDto parentCreationDto) {
