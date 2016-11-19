@@ -7,7 +7,7 @@ import java.io.Serializable;
 /**
  * Created by thiagoretondar on 16/11/16.
  */
-public class UserLoginIdResponse implements Serializable {
+public class UserLoginIdResponseDto implements Serializable {
 
     private static final long serialVersionUID = -5457146046208461580L;
 
@@ -17,10 +17,10 @@ public class UserLoginIdResponse implements Serializable {
     @JsonProperty("user_id")
     private Integer userId;
 
-    public UserLoginIdResponse() {
+    public UserLoginIdResponseDto() {
     }
 
-    public UserLoginIdResponse(boolean logged, Integer userId) {
+    public UserLoginIdResponseDto(boolean logged, Integer userId) {
         this.logged = logged;
         this.userId = userId;
     }
