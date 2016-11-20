@@ -42,7 +42,7 @@ public class ParentService {
             return new UserLoginIdResponseDto(true, savedParent.getId());
         }
 
-        throw new ParentAlreadyExistsException("Email already exists");
+        return new UserLoginIdResponseDto(false, -1);
     }
 
     /**
