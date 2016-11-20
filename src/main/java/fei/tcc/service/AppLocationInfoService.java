@@ -8,11 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 
 import static java.time.Instant.ofEpochMilli;
-import static java.time.ZoneId.systemDefault;
 
 /**
  * Created by thiagoretondar on 30/10/16.
@@ -38,7 +38,7 @@ public class AppLocationInfoService {
         List<LocationUsedEntity> locationUsedEntityList = new ArrayList<>();
 
         locationInfoList.forEach(locationInfo -> {
-            LocalDateTime dateTimeConverted = ofEpochMilli(locationInfo.getDatetime()).atZone(systemDefault()).toLocalDateTime();
+            LocalDateTime dateTimeConverted = ofEpochMilli(locationInfo.getDatetime()).atZone(ZoneId.of("America/Sao_Paulo")).toLocalDateTime();
             locationUsedEntityList.add(new LocationUsedEntity(
                     dateTimeConverted,
                     locationInfo.getLatitude(),

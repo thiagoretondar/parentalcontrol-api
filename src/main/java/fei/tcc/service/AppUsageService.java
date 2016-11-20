@@ -48,7 +48,7 @@ public class AppUsageService {
             LOGGER.info("Received an amount of " + dateTimes.size() + " datetime of app name " + appName + " for user id " + userId );
 
             dateTimes.forEach(dateTime -> {
-                LocalDateTime dateTimeConverted = ofEpochMilli(dateTime).atZone(ZoneId.systemDefault()).toLocalDateTime();
+                LocalDateTime dateTimeConverted = ofEpochMilli(dateTime).atZone(ZoneId.of("America/Sao_Paulo")).toLocalDateTime();
                 AppUsageEntity appUsageEntity = new AppUsageEntity();
                 appUsageEntity.setAppName(appName);
                 appUsageEntity.setDateTimeUsed(dateTimeConverted);
