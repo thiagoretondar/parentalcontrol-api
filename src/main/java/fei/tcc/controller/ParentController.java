@@ -1,8 +1,6 @@
 package fei.tcc.controller;
 
-import fei.tcc.dto.ParentCreationDto;
-import fei.tcc.dto.ParentLoginDto;
-import fei.tcc.dto.UserLoginIdResponseDto;
+import fei.tcc.dto.*;
 import fei.tcc.exception.ParentAlreadyExistsException;
 import fei.tcc.service.ParentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,13 +31,18 @@ public class ParentController {
 
     @ResponseStatus(value = CREATED)
     @RequestMapping(method = POST, value = "/create", consumes = APPLICATION_JSON_UTF8_VALUE)
-    public UserLoginIdResponseDto create(@RequestBody @Valid ParentCreationDto parentCreationDto) throws ParentAlreadyExistsException {
-        return parentService.create(parentCreationDto);
+    public ParentLoginIdResponseDto createParent(@RequestBody @Valid ParentCreationDto parentCreationDto) throws ParentAlreadyExistsException {
+        return parentService.createParent(parentCreationDto);
     }
 
     @RequestMapping(method = POST, value = "/login", consumes = APPLICATION_JSON_UTF8_VALUE)
-    public UserLoginIdResponseDto login(@RequestBody @Valid ParentLoginDto parentLoginDto) {
-        return parentService.login(parentLoginDto);
+    public ParentLoginIdResponseDto loginParent(@RequestBody @Valid ParentLoginDto parentLoginDto) {
+        return parentService.loginParent(parentLoginDto);
+    }
+
+    @RequestMapping(method = POST, value = "/user/create", consumes = APPLICATION_JSON_UTF8_VALUE)
+    public UserLoginIdResponseDto createUser(@RequestBody @Valid UserChildCreationDto userChildCreationDto) {
+        return parentService.createUserChild(userChildCreationDto);
     }
 
 }

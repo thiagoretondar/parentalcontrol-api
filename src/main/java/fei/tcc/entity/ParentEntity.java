@@ -14,7 +14,7 @@ public class ParentEntity {
     @Id
     @GeneratedValue(strategy = AUTO)
     @Column(name = "id")
-    private Integer id;
+    private Long id;
 
     @Column(name = "first_name")
     private String firstName;
@@ -28,11 +28,11 @@ public class ParentEntity {
     @Column(name = "password")
     private String password;
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

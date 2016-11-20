@@ -40,7 +40,7 @@ public class UsageAppsInfoBusiness {
 
         if (userService.existsUserWithId(userId)) {
             LOGGER.info("User ID exists. Starting saving information received");
-            // TODO refactor: maybe create a general exception to try any of those actions
+            // TODO refactor: maybe createParent a general exception to try any of those actions
             Long lastAppUsageDatetime = appUsageService.saveAll(allAppsInfoDto.getAppUsageInfoList(), userId);
             Long lastLocationUsageDatetime = appLocationInfoService.saveAll(allAppsInfoDto.getLocationInfoList(), userId);
             appMostUsedService.saveAll(allAppsInfoDto.getMostUsedAppsList(), userId);

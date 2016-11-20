@@ -1,6 +1,7 @@
 package fei.tcc.entity;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 
 import static javax.persistence.GenerationType.AUTO;
 
@@ -20,7 +21,16 @@ public class UserEntity {
     private String name;
 
     @Column(name = "parent_id")
-    private Integer parentId;
+    private Long parentId;
+
+    @Column(name = "birthdate")
+    private LocalDate birthdate;
+
+    @Column(name = "sex")
+    private String sex;
+
+    @Column(name = "deviceId")
+    private String deviceId;
 
     public Long getId() {
         return id;
@@ -38,12 +48,36 @@ public class UserEntity {
         this.name = name;
     }
 
-    public Integer getParentId() {
+    public Long getParentId() {
         return parentId;
     }
 
-    public void setParentId(Integer parentId) {
+    public void setParentId(Long parentId) {
         this.parentId = parentId;
     }
-    
+
+    public LocalDate getBirthdate() {
+        return birthdate;
+    }
+
+    public void setBirthdate(LocalDate birthdate) {
+        this.birthdate = birthdate;
+    }
+
+    public String getSex() {
+        return sex;
+    }
+
+    public void setSex(String sex) {
+        this.sex = sex;
+    }
+
+    public String getDeviceId() {
+        return deviceId;
+    }
+
+    public void setDeviceId(String deviceId) {
+        this.deviceId = deviceId;
+    }
+
 }
